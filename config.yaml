@@ -1,0 +1,5 @@
+name: xyresume
+version: 2
+handle:
+
+- rewrite: if(!is_file()) goto "/index.php"

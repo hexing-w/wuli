@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>zAvada Free Responsive Html5 Templates</title>
+	<meta name="description" content="Free Responsive Html5 Css3 Templates | zerotheme.com">
+	<meta name="author" content="">
+	
+    <!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+  ================================================== -->
+  	<link rel="stylesheet" href="<?=BASE_PATH;?>/Public/css/zerogrid.css">
+	<link rel="stylesheet" href="<?=BASE_PATH;?>/Public/css/style.css">
+	<link rel="stylesheet" href="<?=BASE_PATH;?>/Public/css/component.css">
+	<link rel="stylesheet" href="<?=BASE_PATH;?>/Public/css/responsive.css">
+	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="s<?=BASE_PATH;?>/Public/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+	<![endif]-->
+	
+	<link href='<?=BASE_PATH;?>/Public/images/favicon.ico' rel='icon' type='image/x-icon'/>
+    
+</head>
+<body>
+<div class="wrap-body">
+<!--------------Header--------------->
+<div class="top-header">
+	<div class="zerogrid">
+			<nav>
+			  <a class="toggleMenu" href="#">Menu</a>
+			  <ul class="menu">
+			  <li><a href="/">Home</a></li>
+				  <?php foreach($attr as $k=>$v){?>
+				  <?php if(!empty($v['cate'])){ ?>
+				  <li>
+					  <a href="<?php echo BASE_PATH.'/Index/index?id='.$v['attr_id'];?>" class="parent"><?php echo $v['attr_name']?></a>
+					  <ul>
+					   <?php foreach($v['cate'] as $key=>$value){?>
+					   <?php if(!empty($value['cate'])){ ?>
+	
+						  <li>
+						  	<a href="<?php echo BASE_PATH.'/Index/index?id='.$value['attr_id'];?>" class="parent"><?php echo $value['attr_name']?></a>
+							<ul>
+							<?php foreach($value['cate'] as $ke=>$va){ ?>
+								<li><a href="<?php echo BASE_PATH.'/Index/index?id='.$va['attr_id'];?>"><?php echo $va['attr_name']?></a></li>
+							<?php }?>
+							</ul>
+						  </li>
+						   <?php } else{ ?>
+						   <li><a href="<?php echo BASE_PATH.'/Index/index?id='.$value['attr_id'];?>"><?php echo $value['attr_name']?></a></li>
+						   <?php }}?>
+					  </ul>
+				  </li>
+				  <?php } else{?>
+						<li><a href="<?php echo BASE_PATH.'/Index/index?id='.$v['attr_id'];?>"><?php echo $v['attr_name'];?></a></li>
+				  <?php }}?>
+			  </ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<header>
+	<div class="wrap-header">
+		<div class="zerogrid">
+			<div id="logo"><a href="#"><img src="<?=BASE_PATH;?>/Public/images/logo.png"/></a></div>
+			<div class="row">
+			</div>
+			<div class="header-search">
+				<center><form method="get" action="/search" id="search">
+				  <input name="q" type="text" size="40" placeholder="Type key to search" />
+				</form></center>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="copyrights">Collect from <a href="" ></a></div>
+<!--------------Content--------------->
+<section class="container">
+	<div class="zerogrid">
+		<div class="col-2-3">
+			<div id="main-content">
+			<?php $i=0;$count=count($content);$num=ceil($count/2);if(!empty($content)){for($j=0;$j<$num;$j++){?>
+				<div class="row">
+				
+					<div class="col-1-2">
+						<div class="wrap-col">
+							<article>
+								<img class="full" src="<?php $image=BASE_PATH.'/'.$content[$i]['images'];
+								                          $images=BASE_PATH."/"."Public/images/img01.jpg";
+								               if(empty($content[$i]['images'])){echo $images;}
+								else{echo $image;} ?>">
+								<div class="wrap-art">
+									<div class="art-header">
+										<h1 class="title"><a href="<?php echo BASE_PATH.'/Index/detail?id='.$content[$i]['id'];?>"><?php echo $content[$i]['title'];?></a></h1>
+									</div>
+									<div class="art-content">
+										<p><?php echo mb_substr(strip_tags($content[$i]['content']),0,50,'utf-8'); ?></p>
+										
+										<center><a href="<?php echo BASE_PATH.'/Index/detail?id='.$content[$i]['id'];$i++;?>" class="button">Read More</a></center>
+									</div>
+
+								</div>
+							</article>
+						</div>
+					</div>
+					<?php if($i<$count){?>
+					<div class="col-1-2">
+						<div class="wrap-col">
+							<article class="black">
+								<img class="full" src="<?php $image=BASE_PATH.'/'.$content[$i]['images'];
+								                          $images=BASE_PATH."/"."Public/images/img01.jpg";
+								               if(empty($content[$i]['images'])){echo $images;}
+								else{echo $image;} ?>">
+								<div class="wrap-art">
+									<div class="art-header">
+										<h1 class="title"><a href="<?php echo BASE_PATH.'/Index/detail?id='.$content[$i]['id'];?>"><?php echo $content[$i]['title'];?></a></h1>
+									</div>
+									<div class="art-content">
+										<p><?php echo mb_substr(strip_tags($content[$i]['content']),0,50,'utf-8');?></p>
+										<center><a href="<?php echo BASE_PATH.'/Index/detail?id='.$content[$i]['id']; $i++;?>" class="button">Read More</a></center>
+									</div>
+
+								</div>
+							</article>
+						</div>
+					</div>
+				<?php } ?></div>
+			<?php }} ?></div>
+		</div>
+		<div class="col-1-3">
+			<div id="sidebar" class="wrap-col">
+				<div class="wrap-slidebar">
+					<div class="widget">
+						<div class="wid-about"><a href="https://hexing-w.github.io">About me</a></div>
+					</div>
+					<div class="widget">
+						<div class="wid-header">
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="widget wid-posts">
+						<div class="wid-header">
+							<h4>History</h4>
+							<div class="clear"></div>
+						</div>
+						<div class="wid-content">
+							<?php foreach($post as $k=>$v){?>
+							<div class="row post">
+								<a href="<?php echo BASE_PATH.'/Index/detail?id='.$v['id'];?>"><img src="<?php $image=BASE_PATH.'/'.$v['images'];
+								                          $images=BASE_PATH."/"."Public/images/img01.jpg";
+								               if(empty($v['images'])){echo $images;}
+								else{echo $image;} ?>"/></a>
+								<div class="resent">
+								  <h6><a href="<?php echo BASE_PATH.'/Index/detail?id='.$v['id'];?>"><?php echo mb_substr(strip_tags($v['title']),0,10,'utf-8'); ?></a></h6><br>
+								  <p><?php echo $v['create_time'];?></p>
+								</div>
+							</div>
+							<?php }?>
+						</div>
+					</div>
+					<div class="widget wid-posts">
+						<div class="wid-header">
+							<h4>Popular Post</h4>
+						<div class="clear"></div>
+						</div>
+						<div class="wid-content">
+						<?php foreach($popular as $k=>$v){?>
+							<div class="row post">
+								<a href="<?php echo BASE_PATH.'/Index/detail?id='.$v['id'];?>"><img src="<?php $image=BASE_PATH.'/'.$v['images'];
+								                          $images=BASE_PATH."/"."Public/images/img01.jpg";
+								               if(empty($v['images'])){echo $images;}
+								else{echo $image;} ?>"/></a>
+								<div class="resent">
+								  <h6><a href="<?php echo BASE_PATH.'/Index/detail?id='.$v['id'];?>"><?php echo mb_substr(strip_tags($v['title']),0,10,'utf-8'); ?></a></h6><br>
+								  <p><?php echo $v['create_time'];?> </p>
+								</div>
+							</div>
+						<?php }?>
+								
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="pages"><?php echo $page;?></div>
+<!--------------Footer--------------->
+<footer>
+	<div class="zerogrid">
+	   <div class="col-1-3">
+			<div class="copyright">
+				<p>© 2015 zAvada. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+			</div>
+	   </div>
+	   <div class="col-1-3">
+			<div class="back-to-top">
+				<a href="#">Back to top</a>
+			</div>
+	   </div>
+	   <div class="col-1-3">
+	   </div>
+	</div>
+</footer>
+
+</div>
+<script type="text/javascript" src="<?=BASE_PATH;?>/Public/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=BASE_PATH;?>/Public/js/navigation.js"></script>
+</body></html>

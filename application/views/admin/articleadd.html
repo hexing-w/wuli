@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>-.-</title>
+<link href="<?=BASE_PATH;?>/Public/css/global.css"  rel="stylesheet"  type="text/css" media="all" />
+<script type="text/javascript" charset="utf-8" src="<?=BASE_PATH;?>/Public/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=BASE_PATH;?>/Public/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="<?=BASE_PATH;?>/Public/js/jquery-1.6.4.js"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+        	$("#selectFileBtn").click(function(){
+        		$fileField = $('<input type="file"  name="thumbs[]"/>');
+        		$fileField.hide();
+        		$("#attachList").append($fileField);
+        		$fileField.trigger("click");
+        		$fileField.change(function(){
+        		$path = $(this).val();
+        		$filename = $path.substring($path.lastIndexOf("\\")+1);
+        		 $attachItem = $('<div class="attachItem"><div class="left">a.gif</div><div class="right"><a href="#" title="删除附件">删除</a></div></div>');
+        		 $attachItem.find(".left").html($filename);
+        		 $("#attachList").append($attachItem);		
+        		});
+        	});
+        	$("#attachList>.attachItem").find('a').live('click',function(obj,i){
+        		$(this).parents('.attachItem').prev('input').remove();
+        		$(this).parents('.attachItem').remove();
+        	});
+        });
+</script>
+</head>
+<body>
+<h3>添加文章</h3>
+<form action="<?=BASE_PATH;?>/admin/articleAdd" method="post" enctype="multipart/form-data">
+<table  border="1" cellpadding="5" cellspacing="0" bgcolor="#cccccc">
+	<tr>
+		<td align="right" >文章名称</td>
+		<td><input type="text" name="title"  id="title" placeholder="请输入标题"/></td>
+	</tr>
+	<tr>
+		<td align="right">文章分类</td>
+		<td>
+		<select name="attr_id">
+			<option value="0">请选择</option>
+			<?php foreach ($attr as $k => $v) {?>
+			
+				<option value="<?=$v['attr_id'];?>"><?php echo $v['html'].$v['attr_name']?></option>
+			<?php } ?>
+		
+			
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">文章来源</td>
+
+		<td><input style="float:left;" id="url" type="text" name="url"  placeholder="请输入文章来源"/>
+		<input style="float:left;" id="curl" type="button" name="curl"  value="抓取"/>
+
+		</td>
+	</tr>
+	 <tr>
+		<td align="right">是否热门</td>
+		<td>
+		<input type="radio" name="hot" value="1" checked>热门
+		<input type="radio" name="hot" value="0">  普通
+		</td>
+	</tr> 
+	<tr>
+		<td align="right"  >文章内容</td>
+		<td>
+		<!--	<textarea name="pDesc" id="editor_id" style="width:100%;height:150px;"></textarea> !-->
+		<!-- <textarea id="MyTextarea" name="MyTextarea"  style="width:100%;height:150px;">  </textarea> !-->
+		 <textarea id="goods_introduce" name="content"></textarea>  
+  <script type="text/javascript">  
+ UEDITOR_CONFIG.UEDITOR_HOME_URL = '<?=BASE_PATH;?>/Public/ueditor/'; //一定要用这句话，否则你需要去ueditor.config.js修改路径的配置信息  
+        window.onload = function(){
+            window.UEDITOR_CONFIG.initialFrameHeight=100;
+            window.UEDITOR_CONFIG.initialFrameWidth=800;
+            window.UEDITOR_CONFIG.savePath = ['uploads','uploads2'];  
+            window.UEDITOR_CONFIG.imageUrl="<?=BASE_PATH;?>/uploads/"; 
+            window.UEDITOR_CONFIG.imagePath="<?=BASE_PATH;?>/uploads/";//获取上传地址
+            window.UEDITOR_CONFIG.imageUrlPrefix="http://localhost/abot/sample";
+            window.UEDITOR_CONFIG.imagePathFormat="localhost/about/sample/uploads/";
+  			UE.getEditor('goods_introduce');
+ } 
+ </script> 
+ 				<script type="text/javascript">
+			$(function(){
+				$('#curl').click(function(){
+					var url=encodeURI($('#url').val());
+
+					$.ajax({
+						url:"<?=BASE_PATH;?>/admin/curl",
+						type:'POST',
+						data:{url:url},
+						
+						success:function(msg){
+
+							msg_json = $.parseJSON(msg);
+							 console.log(1111);
+								$("#title").val(msg_json.msg[0]);
+				               //$("#goods_introduce").val(msg_json.msg[1]);
+							var ue = UE.getEditor('goods_introduce');
+							//对编辑器的操作最好在编辑器ready之后再做
+							ue.ready(function() {
+							//设置编辑器的内容
+							ue.setContent(msg_json.msg[1]);
+							//获取html内容，返回: <p>hello</p>
+							//var html = ue.getContent();
+							//获取纯文本内容，返回: hello
+							//var txt = ue.getContentTxt();
+							});
+
+
+						}
+					})
+				})
+			})
+		</script> 
+		</td>
+	</tr>
+	<tr>
+		<td align="right">banner</td>
+		<td>
+			<a href="javascript:void(0)" id="selectFileBtn">添加附件</a>
+	
+			<div id="attachList" class="clear"></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit"  value="发布文章"/></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

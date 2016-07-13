@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>-.-</title>
+    <link rel="stylesheet" type="text/css" href="<?=BASE_PATH;?>/Public/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+    <link rel="stylesheet" type="text/css"  href="<?=BASE_PATH;?>/Public/css/backstage.css" />
+
+<script src="<?=BASE_PATH;?>/Public/jquery-ui/js/jquery-1.10.2.js"></script>
+<script src="<?=BASE_PATH;?>/Public/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+<script src="<?=BASE_PATH;?>/Public/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+</head>
+
+<body>
+<div id="showDetail"  style="display:none;">
+
+</div>
+<div class="details">
+                    <div class="details_operation clearfix">
+                        <div class="bui_select">
+                            <input type="button" value="添&nbsp;&nbsp;加" class="add" onclick="addPro()">
+                        </div>
+                        <div class="fr">
+                            <div class="text">
+                                <span>商品价格：</span>
+                                <div class="bui_select">
+                                    <select id="" class="select" onchange="change(this.value)">
+                                    	<option>-请选择-</option>
+                                        <option value="iPrice asc" >由低到高</option>
+                                        <option value="iPrice desc">由高到底</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <span>上架时间：</span>
+                                <div class="bui_select">
+                                 <select id="" class="select" onchange="change(this.value)">
+                                 	<option>-请选择-</option>
+                                        <option value="pubTime desc" >最新发布</option>
+                                        <option value="pubTime asc">历史发布</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <span>搜索</span>
+                                <input type="text" value="" class="search"  id="search" onkeypress="search()" >
+                            </div>
+                        </div>
+                    </div>
+                    <!--表格-->
+                    <table class="table" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th width="10%">编号</th>
+                                <th width="25%">文章名称</th>
+                                <th width="15%">文章分类</th>
+                                <th width="15%">创建时间</th>
+                                <th width="10%">文章作者</th>
+                                <th width="10%">点击次数</th>
+                                 
+                                
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                       <?php foreach ($content as $k => $v) { ?>
+                       	
+                 
+                            <tr>
+                                <!--这里的id和for里面的c1 需要循环出来-->
+
+                                <td><input type="checkbox" id="num" class="check" value=""><label for="c1" class="label"><?php echo $v['id'];?></label></td>
+                                <td><?php echo $v['title'];?></td>
+                                <td><?php echo $v['attr_name'];?></td>
+                                <td>
+                                <?php echo $v['create_time'];?>
+                                </td>
+                                 <td><?php echo $v['author'];?></td>
+                                  <td><?php echo $v['click'];?></td>
+                                   
+                                <td align="center">
+                                				<input type="button" value="详情" class="btn" id="detail"><input type="button" value="修改" class="btn" onclick="editPro({$v.goods_id})"><input type="button" value="删除" class="btn"onclick="delPro({$v.goods_id})">
+                                
+                                </td>
+                            </tr>
+                   <?php }?>
+                   
+                              <tr class="content">
+                <!--<td colspan="3" bgcolor="#FFFFFF">&nbsp;{$page}</td>-->
+                <td colspan="8" bgcolor="#FFFFFF"><div class="pages">
+                        <?php echo $page;?>
+                </div></td>  
+            </tr>
+                       
+                        </tbody>
+                    </table>
+                </div>
+<script type="text/javascript">
+	$("#detail").click(function(){
+		 var id=$('.label').text();
+		window.location="<?=BASE_PATH?>/index/detail?id="+id;
+	});
+	function addPro(){
+		window.location="{:U('admin/goods/addgoods')}";
+	}
+	function editPro(id){
+		window.location="{:U('Admin/goods/editgoods?id=')}"+id;
+	}
+	function delPro(id){
+		if(window.confirm("您确认要删除嘛？添加一次不易，且删且珍惜!")){
+			window.location="{:U('Admin/goods/delgoods?id=')}"+id;
+		}
+	}
+	function search(){
+		if(event.keyCode==13){
+			var val=document.getElementById("search").value;
+			window.location="listPro.php?keywords="+val;
+		}
+	}
+	function change(val){
+		window.location="listPro.php?order="+val;
+	}
+</script>
+</body>
+</html>
